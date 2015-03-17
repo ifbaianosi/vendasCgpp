@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate -Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.cgpp.vendas.model.Produto" table="produto">
+		<id name="idproduto"></id>
+		<property name="nome"></property>
+		<property name="descricao"></property>
+		<property name="unidade"></property>
+		<property name="preco"></property>
+		<property name="estoque"></property>
+		<property name="estoqueMinimo"></property>
+	</class>
+</hibernate-mapping>
