@@ -6,46 +6,115 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+
+import br.com.cgpp.vendas.utils.HibernateUtil;
 
 public class HibernateDAO<T> implements InterfaceDAO<T> {
 
 	private Class<T> classe;
 	private Session session;
 	
-	public HibernateDAO(Class<T> classe, Session session) {
+	public HibernateDAO(Class<T> classe) {
 		super();
 		this.classe = classe;
-		this.session = session;
 	}
 
 	@Override
-	public void salvar(T bean) {		
-		session.save(bean);
+	public void salvar(T bean) {
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por salvar um registro na base de dados
+			session.save(bean);
+			
+			session.getTransaction().commit();
+			session.close();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}		
 	}
 
 	@Override
-	public void atualizar(T bean) {		
-		session.update(bean);
+	public void atualizar(T bean) {
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por atualizar um registro na base de dados
+			session.update(bean);
+			
+			session.getTransaction().commit();
+			session.close();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void excluir(T bean) {
-		session.delete(bean);
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por deletar um registro na base de dados
+			session.delete(bean);
+			
+			session.getTransaction().commit();
+			session.close();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public T getBean(Serializable codigo) {
-		T bean = (T)session.get(classe, codigo);
-		return bean;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por retornar um registro na base de dados
+
+			T bean = (T)session.get(classe, codigo);
+			
+			session.getTransaction().commit();
+			session.close();
+
+			return bean;
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public List<T> getBeans() {
-		List<T> beans = (List<T>) session.createCriteria(classe).list();
-		return beans;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por retornar todos os registros de uma tabela na base de dados
+			List<T> beans = (List<T>) session.createCriteria(classe).list();
+			
+			session.getTransaction().commit();
+			session.close();
+
+			return beans;
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return null;		
+		
 	}
 
 	
@@ -56,31 +125,44 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 	*/
 	@Override
 	public List<T> findByCriteria(Map<String, Object> params, String[] orderBy) {
-	    Criteria criteria = session.createCriteria(classe);
-	
-	    Iterator<String> keys = params.keySet().iterator();
-	    
-	    while(keys.hasNext()){
-	        String key = keys.next();
-	        Object param = params.get(key);
-	
-	        if(param instanceof String){
-	            criteria.add(Restrictions.ilike(key, "%" + param + "%"));
-	        }else{
-	            criteria.add(Restrictions.eq(key, param));
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			//metodo responsavel por retornar todos os registros de uma tabela na base de dados baseado nos campos definidos para busca
+			Criteria criteria = session.createCriteria(classe);
+			
+		    Iterator<String> keys = params.keySet().iterator();
+		    
+		    while(keys.hasNext()){
+		        String key = keys.next();
+		        Object param = params.get(key);
+		
+		        if(param instanceof String){
+		            criteria.add(Restrictions.ilike(key, "%" + param + "%"));
+		        }else{
+		            criteria.add(Restrictions.eq(key, param));
+		        }
+		    }
+	        
+	        if (orderBy != null && orderBy.length > 0) {
+	        	for (int i = 0; i < orderBy.length; i++){
+	        		criteria.addOrder( Order.desc(orderBy[i]) );
+	        	}
 	        }
-	    }
-        
-        if (orderBy != null && orderBy.length > 0) {
-        	for (int i = 0; i < orderBy.length; i++){
-        		criteria.addOrder( Order.desc(orderBy[i]) );
-        	}
-        }
-        
-        
-	    
-	    List<T> beans = (List<T>) criteria.list();
-		return beans;
+	        
+			session.getTransaction().commit();
+			session.close();
+		    
+		    List<T> beans = (List<T>) criteria.list();
+			return beans;
+
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return null;	    
 	}
 	
 

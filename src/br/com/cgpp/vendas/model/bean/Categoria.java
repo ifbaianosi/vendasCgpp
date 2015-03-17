@@ -1,5 +1,7 @@
 package br.com.cgpp.vendas.model.bean;
 
+import br.com.cgpp.vendas.model.dao.HibernateDAO;
+
 
 public class Categoria {
 
@@ -30,6 +32,16 @@ public class Categoria {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public static void main(String[] args) {
+		
+		Categoria categoria = new Categoria();
+		categoria.setNome("agora vai baitolinha");
+		categoria.setDescricao("teste teste");
+		
+		HibernateDAO<Categoria> dao = new HibernateDAO<Categoria>(Categoria.class);
+		dao.salvar(categoria);
 	}
 
 

@@ -10,7 +10,6 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
 	private static final SessionFactory sessionFactory;
-	public static final String HIBERNATE_SESSION = "hibernate_session";
 	
 	static
 	{
@@ -18,7 +17,7 @@ public class HibernateUtil {
 		Configuration configuration = new Configuration();
 		configuration.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
 		configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-		configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/ouvidoria");
+		configuration.setProperty("hibernate.connection.url", "jdbc:mysql://10.90.3.78:3306/vendasCgpp");
 		configuration.setProperty("hibernate.connection.username", "root");
 		configuration.setProperty("hibernate.connection.password", "abcif2014");
 		configuration.setProperty("hibernate.c3p0.min_size", "1");

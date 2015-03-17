@@ -4,7 +4,7 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="br.com.cgpp.vendas.model.Categoria" table="categoria">
+	<class name="br.com.cgpp.vendas.model.bean.Categoria" table="categoria">
 		<id name="idcategoria"></id>
 		<property name="nome"></property>
 		<property name="descricao"></property>
