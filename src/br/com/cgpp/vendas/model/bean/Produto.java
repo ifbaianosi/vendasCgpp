@@ -10,7 +10,7 @@ public class Produto {
 	private double preco;
 	private int estoque;
 	private int estoqueMinimo;
-	private int categoria_idcategoria;
+	private Categoria categoria;
 
 	public int getIdproduto() {
 		return idproduto;
@@ -40,11 +40,6 @@ public class Produto {
 		return estoqueMinimo;
 	}
 
-	public int getCategoria_idcategoria() {
-		return categoria_idcategoria;
-	}
-
-
 	public void setIdproduto(int idproduto) {
 		this.idproduto = idproduto;
 	}
@@ -73,9 +68,15 @@ public class Produto {
 		this.estoqueMinimo = estoqueMinimo;
 	}
 
-	public void setCategoria_idcategoria(int categoria_idcategoria) {
-		this.categoria_idcategoria = categoria_idcategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+
 
 
 }
