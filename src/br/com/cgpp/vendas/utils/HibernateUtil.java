@@ -30,6 +30,7 @@ public class HibernateUtil {
 		configuration.setProperty("hibernate.format_sql", "true");
 		
 		configuration.addResource("br/com/cgpp/vendas/model/bean/Categoria.hbm.xml");
+		configuration.addResource("br/com/cgpp/vendas/model/bean/Produto.hbm.xml");
 		
 		sessionFactory = configuration.buildSessionFactory();
 	}

@@ -1,5 +1,7 @@
 package br.com.cgpp.vendas.model.bean;
 
+import br.com.cgpp.vendas.model.dao.HibernateDAO;
+
 
 public class Produto {
 
@@ -77,6 +79,25 @@ public class Produto {
 	}
 
 
-
+	public static void main(String[] args) {
+	/*Produto p = new Produto();
+	p.setUnidade("unidade");
+	p.setPreco(20.5);
+	p.setNome("nome");
+	p.setEstoqueMinimo(50);
+	p.setEstoque(60);
+	p.setDescricao("descricao");
+	HibernateDAO<Categoria> teste = new HibernateDAO<>(Categoria.class);
+	p.setCategoria(teste.getBean(1));
+	
+	HibernateDAO<Produto> pDAO = new HibernateDAO<>(Produto.class);
+	pDAO.salvar(p);*/
+		
+	HibernateDAO<Produto> pDAO = new HibernateDAO<>(Produto.class);
+	
+	Produto p = pDAO.getBean(1);
+	System.out.println("nome.: "+p.getNome()+"\nestoque.: "+p.getEstoque()+"\npreco.: "+p.getPreco()+"\ncategoria.: "+p.getCategoria().getNome());
+		
+	}
 
 }
