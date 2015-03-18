@@ -30,7 +30,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			//metodo responsavel por salvar um registro na base de dados
+			//método responsável por salvar um registro na base de dados
 			session.save(bean);
 			
 			session.getTransaction().commit();
@@ -47,7 +47,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			//metodo responsavel por atualizar um registro na base de dados
+			//método responsável por atualizar um registro na base de dados
 			session.update(bean);
 			
 			session.getTransaction().commit();
@@ -64,7 +64,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			//metodo responsavel por deletar um registro na base de dados
+			//método responsável por deletar um registro na base de dados
 			session.delete(bean);
 			
 			session.getTransaction().commit();
@@ -81,8 +81,9 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			//metodo responsavel por retornar um registro na base de dados
+			//método responsável por retornar um registro na base de dados
 
+			@SuppressWarnings("unchecked")
 			T bean = (T)session.get(classe, codigo);
 			
 			session.getTransaction().commit();
@@ -101,8 +102,9 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			
-			//metodo responsavel por retornar todos os registros de uma tabela na base de dados
+			//será
+			//método responsável por retornar todos os registros de uma tabela na base de dados
+			@SuppressWarnings("unchecked")
 			List<T> beans = (List<T>) session.createCriteria(classe).list();
 			
 			session.getTransaction().commit();
@@ -130,7 +132,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			//metodo responsavel por retornar todos os registros de uma tabela na base de dados baseado nos campos definidos para busca
+			//método responsável por retornar todos os registros de uma tabela na base de dados baseado nos campos definidos para busca
 			Criteria criteria = session.createCriteria(classe);
 			
 		    Iterator<String> keys = params.keySet().iterator();
@@ -155,7 +157,8 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 			session.getTransaction().commit();
 			session.close();
 		    
-		    List<T> beans = (List<T>) criteria.list();
+		    @SuppressWarnings("unchecked")
+			List<T> beans = (List<T>) criteria.list();
 			return beans;
 
 		} catch (HibernateException e) {
