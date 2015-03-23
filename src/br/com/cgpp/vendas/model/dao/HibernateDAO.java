@@ -154,11 +154,12 @@ public class HibernateDAO<T> implements InterfaceDAO<T> {
 	        	}
 	        }
 	        
-			session.getTransaction().commit();
-			session.close();
+			
 		    
 		    @SuppressWarnings("unchecked")
 			List<T> beans = (List<T>) criteria.list();
+		    session.getTransaction().commit();
+			session.close();
 			return beans;
 
 		} catch (HibernateException e) {

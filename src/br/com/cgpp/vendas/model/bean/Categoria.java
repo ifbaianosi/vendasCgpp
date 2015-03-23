@@ -33,15 +33,13 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	public static void main(String[] args) {
-		
-		Categoria categoria = new Categoria();
-		categoria.setNome("agora vai baitolinha");
-		categoria.setDescricao("teste teste");
-		
-		HibernateDAO<Categoria> dao = new HibernateDAO<Categoria>(Categoria.class);
-		dao.salvar(categoria);
+
+	public boolean isValid() {
+		if (nome != null){
+			return true;			
+		}else{
+			return false;
+		}
 	}
 
 
