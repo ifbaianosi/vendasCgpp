@@ -8,15 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class ListarCategoria extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	public JTextField nome;
-	public JTextField descricao;
+	public JTextField pesquisa;
 	public JButton cancelar;
-	public JButton salvar;
+	public JButton deletar;
 	
 
 	/**
@@ -48,10 +49,10 @@ public class ListarCategoria extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
-				salvar = new JButton("Salvar");
-				salvar.setActionCommand("OK");
-				buttonPane.add(salvar);
-				getRootPane().setDefaultButton(salvar);
+				deletar = new JButton("Deletar");
+				deletar.setActionCommand("OK");
+				buttonPane.add(deletar);
+				getRootPane().setDefaultButton(deletar);
 			}
 			{
 				cancelar = new JButton("Cancelar");
@@ -60,22 +61,20 @@ public class ListarCategoria extends JDialog {
 			}
 		}
 		
-		nome = new JTextField();
-		nome.setBounds(98, 78, 265, 20);
-		getContentPane().add(nome);
-		nome.setColumns(10);
+		pesquisa = new JTextField();
+		pesquisa.setBounds(98, 34, 265, 20);
+		getContentPane().add(pesquisa);
+		pesquisa.setColumns(10);
 		
-		descricao = new JTextField();
-		descricao.setBounds(98, 122, 265, 20);
-		getContentPane().add(descricao);
-		descricao.setColumns(10);
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(26, 81, 46, 14);
+		JLabel lblNome = new JLabel("Pesquisar:");
+		lblNome.setBounds(26, 37, 62, 14);
 		getContentPane().add(lblNome);
 		
-		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
-		lblDescrio.setBounds(26, 125, 62, 14);
-		getContentPane().add(lblDescrio);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(26, 72, 337, 103);
+		getContentPane().add(scrollPane);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		scrollPane.setViewportView(tabbedPane);
 	}
 }
