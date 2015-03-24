@@ -21,12 +21,11 @@ import java.awt.event.ActionEvent;
 public class JF_principal extends JFrame {
 
 	private JPanel contentPane;
-	private static JF_principal frame;
 	
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,13 +37,13 @@ public class JF_principal extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public JF_principal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setLocationRelativeTo(null);
 		
@@ -70,7 +69,7 @@ public class JF_principal extends JFrame {
 		JMenuItem mntmCategoria = new JMenuItem("Categoria");
 		mntmCategoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ListarCategoria(frame, "Lista de categorias", "Listagem de todos os itens de categoria.");
+				listar();
 			}
 		});
 		mnCadastros.add(mntmCategoria);
@@ -86,10 +85,13 @@ public class JF_principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+
+		setVisible(true);
 	}
 
-	public static JF_principal getFrame() {
-		return frame;
+
+	private void listar() {
+		new ListarCategoria(this, "Lista de categorias", "Listagem de todos os itens de categoria.");
 	}
 
 }

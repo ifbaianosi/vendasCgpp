@@ -32,13 +32,13 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 	
 	public ListarCategoria(Frame owner, String titulo, String subtitulo) {
 		super(owner);
-		this.titulo.setText(titulo);
-		this.subtitulo.setText(subtitulo);
-		dao = new HibernateDAO<Categoria>(Categoria.class);
-		UIUtils = new UIUtils();
+		getTitulo().setText(titulo);
+		getSubtitulo().setText(subtitulo);
+		this.dao = new HibernateDAO<Categoria>(Categoria.class);
+		this.UIUtils = new UIUtils();
 		listar();
 		addEventos();
-		this.setVisible(true);
+		setVisible(true);
 	}
 
 	private void addEventos() {
@@ -60,8 +60,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getJButton_novo() || e.getSource() == getJMenuItem_novo()){
-			new CadastrarCategoria(JF_principal.getFrame(), "Categoria", "Cadastrar uma nova categoria").setVisible(true);;
-			listar();
+			novo();
 		}else
 			
 		if (e.getSource() == getJButton_editar() || e.getSource() == getJMenuItem_editar()){
@@ -69,8 +68,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 		} else
 		
 		if(e.getSource() == getJButton_procurar() || e.getSource() == getJMenuItem_procurar()){
-			new CadastrarCategoria(this, "Procurar Categoria", "Informe os parametros de pesquisa para procurar um registro.", -1);
-			//procurar();
+			procurar();
 		} else
 			
 		if (e.getSource() == getBtnExcluir() || e.getSource() == getJMenuItem_excluir()){
@@ -81,7 +79,67 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 			dispose();
 		} 
 	}
+	
+	private void novo() {
+		new CadastrarCategoria(this, "Categoria", "Cadastrar uma nova categoria").setVisible(true);;
+		listar();
+	}
 
+	private void editar() {
+		int linhaselecionada = getJTable().getSelectedRow();		
+		
+		if (getJTable().getSelectedRowCount() > 0)
+		{
+			Categoria categoria = new Categoria();
+			categoria.setIdcategoria(Integer.parseInt(getJTable().getValueAt(linhaselecionada, 0).toString()));			
+			
+			CadastrarCategoria janelac = new CadastrarCategoria(this, categoria, "Editar Categoria", "Atualiza as informações alteradas.");	
+			janelac.setVisible(true);
+			
+			getJButton_editar().grabFocus();
+			try {			
+				listarTable(dao.getBeans());
+				getJTable().setRowSelectionInterval(linhaselecionada, linhaselecionada);
+			} catch (Exception e) {
+				UIUtils.displayException(this, e);
+			}			
+		}else {
+			UIUtils.displayAlert(this, "Selecione um registro ", "Selecione um registro na tabela e clique em editar");
+		}
+			
+	}
+	
+	private void procurar() {
+		new CadastrarCategoria(this, "Procurar Categoria", "Informe os parametros de pesquisa para procurar um registro.", -1).setVisible(true);;
+	}
+
+
+	private void excluir() {
+		int linhaselecionada = getJTable().getSelectedRow();		
+		
+		if (getJTable().getSelectedRowCount() > 0)
+		{
+			Categoria categoria = new Categoria();
+			categoria.setIdcategoria(Integer.parseInt(getJTable().getValueAt(linhaselecionada, 0).toString()));	
+			categoria.setNome(getJTable().getValueAt(linhaselecionada, 1).toString());
+
+			if (UIUtils.displayConfirmation(this, "Deseja realmente excluir o registro: \n"+categoria.getNome().toUpperCase()))
+			{
+				getBtnExcluir().requestFocus();				
+				dao.excluir(categoria);
+				UIUtils.displayAlertSucess(this, "Sucesso", "registro "+categoria.getNome().toUpperCase()+" excluido com sucesso !");
+				
+				// atualizar a tabela ao excluir um registro
+				try {
+					listarTable(dao.getBeans());
+				} catch (HibernateException e) {
+					UIUtils.displayException(this, e);
+				}
+			}			
+		}else {
+			UIUtils.displayAlert(this, "Selecione um registro ", "Selecione um registro na tabela e clique em excluir");
+		}
+	}
 	private void listar() {			
 			new Thread()
 			{
@@ -153,57 +211,6 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 		
 		getJTable().getColumnModel().getColumn(2).setPreferredWidth(400);
 	}
-
-	private void editar() {
-		int linhaselecionada = getJTable().getSelectedRow();		
-		
-		if (getJTable().getSelectedRowCount() > 0)
-		{
-			Categoria categoria = new Categoria();
-			categoria.setIdcategoria(Integer.parseInt(getJTable().getValueAt(linhaselecionada, 0).toString()));			
-			
-			CadastrarCategoria janela = new CadastrarCategoria(this, categoria, "Editar Categoria", "Atualiza as informações alteradas.");	
-			janela.setVisible(true);
-			
-			getJButton_editar().grabFocus();
-			try {			
-				listarTable(dao.getBeans());
-				getJTable().setRowSelectionInterval(linhaselecionada, linhaselecionada);
-			} catch (Exception e) {
-				UIUtils.displayException(this, e);
-			}			
-		}else {
-			UIUtils.displayAlert(rootPane, "Selecione um registro ", "Selecione um registro na tabela e clique em editar");
-		}
-			
-	}
-
-	private void excluir() {
-		int linhaselecionada = getJTable().getSelectedRow();		
-		
-		if (getJTable().getSelectedRowCount() > 0)
-		{
-			Categoria categoria = new Categoria();
-			categoria.setIdcategoria(Integer.parseInt(getJTable().getValueAt(linhaselecionada, 0).toString()));	
-			categoria.setNome(getJTable().getValueAt(linhaselecionada, 1).toString());
-
-			if (UIUtils.displayConfirmation(this, "Deseja realmente excluir o registro: \n"+categoria.getNome().toUpperCase()))
-			{
-				getBtnExcluir().requestFocus();				
-				dao.excluir(categoria);
-				UIUtils.displayAlertSucess(this, "Sucesso", "registro "+categoria.getNome().toUpperCase()+" excluido com sucesso !");
-				
-				// atualizar a tabela ao excluir um registro
-				try {
-					listarTable(dao.getBeans());
-				} catch (HibernateException e) {
-					UIUtils.displayException(this, e);
-				}
-			}			
-		}else {
-			UIUtils.displayAlert(rootPane, "Selecione um registro ", "Selecione um registro na tabela e clique em excluir");
-		}
-	}	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {	

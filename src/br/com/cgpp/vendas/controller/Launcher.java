@@ -18,8 +18,7 @@ public class Launcher {
 		//new ListarCategoria(null, "Lista de categorias", "Listagem de todos os itens de categoria.");
 		
 		
-		JF_principal p = new JF_principal();
-		p.main(null);
+		new JF_principal();
 	}
 
 }

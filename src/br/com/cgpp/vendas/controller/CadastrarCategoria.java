@@ -39,7 +39,7 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	 * @param titulo, titulo da janela
 	 * @param subtitulo, titulo auxiliar
 	 */
-	public CadastrarCategoria(Frame owner, String titulo, String subtitulo) {		
+	public CadastrarCategoria(Dialog owner, String titulo, String subtitulo) {		
 		super(owner);
 		UIUtils = new UIUtils();
 		getTitulo().setText(titulo);

@@ -68,8 +68,8 @@ public class JD_Listagem extends JDialog {
 	private JLabel jLabel31 = null;
 	private JLayeredPane jLayeredPane = null;  //  @jve:decl-index=0:visual-constraint="754,64"
 	protected JLabel icone;
-	protected JLabel subtitulo;
-	protected JLabel titulo;
+	private JLabel subtitulo;
+	private JLabel titulo;
 	private JLabel jLabel_imgDisignRight = null;
 	private JPanel jPanel1 = null;  //  @jve:decl-index=0:visual-constraint="724,78"
 	private JButton btnExcluir;
@@ -401,10 +401,10 @@ public JButton getJButton_novo() {
 			gbc_titulo.weightx = 1.0;
 			gbc_titulo.weighty = 0.0;
 			gbc_titulo.fill = GridBagConstraints.HORIZONTAL;
-			titulo = new JLabel();
-			titulo.setFont(new Font("Dialog", Font.BOLD, 18));
-			titulo.setText("Listar todos os itens");
-			titulo.setForeground(new Color(102, 102, 102));
+			setTitulo(new JLabel());
+			getTitulo().setFont(new Font("Dialog", Font.BOLD, 18));
+			getTitulo().setText("Listar todos os itens");
+			getTitulo().setForeground(new Color(102, 102, 102));
 			GridBagConstraints gbc_subtitle = new GridBagConstraints();
 			gbc_subtitle.anchor = GridBagConstraints.NORTHWEST;
 			gbc_subtitle.insets = new Insets(0, 45, 5, 25);
@@ -416,9 +416,9 @@ public JButton getJButton_novo() {
 			gbc_subtitle.weightx = 0.0;
 			gbc_subtitle.weighty = 1.0;
 			gbc_subtitle.fill = GridBagConstraints.HORIZONTAL;
-			subtitulo = new JLabel();
-			subtitulo.setForeground(new Color(102, 102, 102));
-			subtitulo.setText("Titulo auxiliar");
+			setSubtitulo(new JLabel());
+			getSubtitulo().setForeground(new Color(102, 102, 102));
+			getSubtitulo().setText("Titulo auxiliar");
 			GridBagConstraints gbc_icone = new GridBagConstraints();
 			gbc_icone.ipady = 6;
 			gbc_icone.anchor = GridBagConstraints.SOUTHEAST;
@@ -437,8 +437,8 @@ public JButton getJButton_novo() {
 			jLayeredPane.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.gray));
 			jLayeredPane.setOpaque(true);
 			jLayeredPane.add(icone, gbc_icone);
-			jLayeredPane.add(subtitulo, gbc_subtitle);
-			jLayeredPane.add(titulo, gbc_titulo);
+			jLayeredPane.add(getSubtitulo(), gbc_subtitle);
+			jLayeredPane.add(getTitulo(), gbc_titulo);
 			jLayeredPane.add(jLabel_imgDisignRight, gridBagConstraints3);
 		}
 		return jLayeredPane;
@@ -501,6 +501,7 @@ public JButton getJButton_novo() {
 	@SuppressWarnings("serial")
 	private void initialize() {
 		this.setSize(700, 500);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
 		this.setMinimumSize(new Dimension(300, 150));
 		this.setLocationRelativeTo(null);
@@ -518,8 +519,22 @@ public JButton getJButton_novo() {
 				}
 			}
 		);
+	}
 
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public JLabel getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(JLabel titulo) {
+		this.titulo = titulo;
+	}
+
+	public JLabel getSubtitulo() {
+		return subtitulo;
+	}
+
+	public void setSubtitulo(JLabel subtitulo) {
+		this.subtitulo = subtitulo;
 	}
 	
 }  //  @jve:decl-index=0:visual-constraint="10,10"
