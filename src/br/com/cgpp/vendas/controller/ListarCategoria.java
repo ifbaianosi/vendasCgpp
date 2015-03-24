@@ -19,6 +19,7 @@ import br.com.cgpp.vendas.model.dao.HibernateDAO;
 import br.com.cgpp.vendas.utils.UIUtils;
 import br.com.cgpp.vendas.view.JD_Listagem;
 import br.com.cgpp.vendas.view.JD_listar_categoria;
+import br.com.cgpp.vendas.view.JF_principal;
 
 public class ListarCategoria extends JD_listar_categoria implements ActionListener, MouseListener, KeyListener{
 
@@ -32,8 +33,9 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 		this.subtitulo.setText(subtitulo);
 		dao = new HibernateDAO<Categoria>(Categoria.class);
 		UIUtils = new UIUtils();
-		listar();
 		addEvent();
+		listar();
+		this.setVisible(true);
 	}
 
 	private void addEvent() {
@@ -55,7 +57,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getJButton_novo()||e.getSource() == getJMenuItem_novo()){
-			new CadastrarCategoria(null, "Categoria", "Cadastrar uma nova categoria");
+			new CadastrarCategoria(JF_principal.getFrame(), "Categoria", "Cadastrar uma nova categoria");
 			listar();
 		}else
 			
@@ -64,7 +66,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 		} else
 		
 		if(e.getSource() == getJButton_procurar()|| e.getSource() == getJMenuItem_procurar()){
-			new CadastrarCategoria(null, "Procurar Categoria", "Informe os parametros de pesquisa para procurar um registro.", -1);
+			new CadastrarCategoria(this, "Procurar Categoria", "Informe os parametros de pesquisa para procurar um registro.", -1);
 			//procurar();
 		} else
 			
@@ -87,13 +89,13 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 						jLabel2.setIcon(new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/ajax-loader.gif")));
 						listarTable(dao.getBeans());
 						
-					} catch (Exception e) {
-						UIUtils.displayException(rootPane, e);
-						jLabel2.setText("problemas na conexão com o banco de dados.");
-						jLabel2.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/erro.png")));
+					} catch (HibernateException e) {
+						//UIUtils.displayException(rootPane, e);
+						jLabel2.setText("problemas na conexão com o banco de dados. "+e.getMessage());
+						jLabel2.setIcon(new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/erro.png")));
 						e.printStackTrace();
 					} finally{
-						jLabel2.setIcon(null);
+						//jLabel2.setIcon(null);
 					}
 				}
 			}.start();
@@ -139,6 +141,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 			));
 		}
 		
+		jLabel2.setIcon(null);
 		jLabel2.setText("Registros: "+categorias.size()+"  ");
 		
 		getJTable().getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -158,7 +161,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 
 			getJButton_editar().requestFocus();
 			
-			new CadastrarCategoria(null, categoria, "Editar Categoria", "Atualiza as informações alteradas.");
+			new CadastrarCategoria(JF_principal.getFrame(), categoria, "Editar Categoria", "Atualiza as informações alteradas.");
 			
 			try {
 				listarTable(dao.getBeans());

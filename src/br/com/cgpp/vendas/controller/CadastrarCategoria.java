@@ -1,6 +1,7 @@
 package br.com.cgpp.vendas.controller;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,7 +87,7 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	 * @param subtitulo, titulo auxiliar
 	 * @param procurar, parametro do tipo inteiro para informar que a janela será de busca, valor=-1
 	 */
-	public CadastrarCategoria(Frame owner, String titulo, String subtitulo, int procurar) {		
+	public CadastrarCategoria(Dialog owner, String titulo, String subtitulo, int procurar) {		
 		super(owner);	
 		UIUtils = new UIUtils();
 		this.titulo.setText(titulo);

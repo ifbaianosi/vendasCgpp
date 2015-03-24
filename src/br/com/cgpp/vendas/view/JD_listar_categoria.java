@@ -17,10 +17,6 @@ public class JD_listar_categoria extends JD_Listagem {
 	 */
 	public JD_listar_categoria(Frame owner) {
 		super(owner);
-		getBtnExcluir().setMnemonic('x');
-		getJButton_procurar().setMnemonic('p');
-		getJButton_editar().setMnemonic('e');
-		getJButton_novo().setMnemonic('n');
 		String cabecalho [] = {"ID", "NOME", "DESCRIÇÃO"};
 		
 		getJTable().setModel(new DefaultTableModel(
@@ -32,9 +28,6 @@ public class JD_listar_categoria extends JD_Listagem {
 		
 		getJTable().getColumnModel().getColumn(1).setPreferredWidth(180);
 		
-		getJTable().getColumnModel().getColumn(2).setPreferredWidth(400);
-		setVisible(true);
-		
+		getJTable().getColumnModel().getColumn(2).setPreferredWidth(400);		
 	}
-
 }

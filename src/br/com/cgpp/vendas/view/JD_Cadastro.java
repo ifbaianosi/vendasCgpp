@@ -2,6 +2,7 @@ package br.com.cgpp.vendas.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -210,16 +211,17 @@ public class JD_Cadastro extends JDialog {
 	}
 
 	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new JD_Cadastro(null);
-	}
-
-	/**
 	 * @param owner
 	 */
 	public JD_Cadastro(Frame owner) {
+		super(owner);
+		initialize();
+	}
+	
+	/**
+	 * @param owner
+	 */
+	public JD_Cadastro(Dialog owner) {
 		super(owner);
 		initialize();
 	}
@@ -234,6 +236,7 @@ public class JD_Cadastro extends JDialog {
 		this.setMinimumSize(new Dimension(400, 250));
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
+		this.setLocationRelativeTo(null);
 		
 		/**
 		 *  botao padrao da tela de cadastro  

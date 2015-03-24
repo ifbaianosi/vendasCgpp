@@ -1,6 +1,7 @@
 package br.com.cgpp.vendas.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -43,6 +44,18 @@ public class JD_cadastro_categoria extends JD_Cadastro {
 	 */
 	public JD_cadastro_categoria(Frame owner) {
 		super(owner);
+		inicializeForm();
+	}
+	
+	/**
+	 * Create the dialog.
+	 */
+	public JD_cadastro_categoria(Dialog owner) {
+		super(owner);
+		inicializeForm();
+	}
+
+	private void inicializeForm() {
 		titulo.setText("Cadastrar Categoria");
 		form_categoria = new JPanel();
 		getJContentPane().add(form_categoria, BorderLayout.CENTER);

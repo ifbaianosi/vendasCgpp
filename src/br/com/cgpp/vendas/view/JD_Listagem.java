@@ -42,6 +42,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JMenuItem;
+import java.awt.Window.Type;
 
 public class JD_Listagem extends JDialog {
 
@@ -149,6 +150,7 @@ public class JD_Listagem extends JDialog {
 public JButton getJButton_novo() {
 		if (jButton_novo == null) {
 			jButton_novo = new JButton();
+			jButton_novo.setMnemonic('n');
 			jButton_novo.setToolTipText("Adicionar um novo registro");
 			jButton_novo.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-adiciona.png")));
 			jButton_novo.setText("Novo");
@@ -164,6 +166,7 @@ public JButton getJButton_novo() {
 	public JButton getJButton_editar() {
 		if (jButton_editar == null) {
 			jButton_editar = new JButton();
+			jButton_editar.setMnemonic('e');
 			jButton_editar.setToolTipText("Editar informa\u00E7\u00F5es do registro selecionado");
 			jButton_editar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155849_edit.png")));
 			jButton_editar.setText("Editar");
@@ -179,6 +182,7 @@ public JButton getJButton_novo() {
 	public JButton getJButton_procurar() {
 		if (jButton_procurar == null) {
 			jButton_procurar = new JButton();
+			jButton_procurar.setMnemonic('p');
 			jButton_procurar.setToolTipText("Procurar registros");
 			jButton_procurar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155999_xmag.png")));
 			jButton_procurar.setText("Procurar");
@@ -189,6 +193,7 @@ public JButton getJButton_novo() {
 	public JButton getBtnExcluir() {
 		if (btnExcluir == null) {
 			btnExcluir = new JButton("Excluir");
+			btnExcluir.setMnemonic('x');
 			btnExcluir.setToolTipText("Excluir um registro selecionado");
 			btnExcluir.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-remove.png")));
 		}
@@ -479,10 +484,10 @@ public JButton getJButton_novo() {
 	 */
 	private void initialize() {
 		this.setSize(700, 500);
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
-		this.setVisible(true);
 		this.setMinimumSize(new Dimension(300, 150));
+		this.setLocationRelativeTo(null);
+		this.setModal(true);
 		
 		/**
 		 *  evento da tecla Esc 
