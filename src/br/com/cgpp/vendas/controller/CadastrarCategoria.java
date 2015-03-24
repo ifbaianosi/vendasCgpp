@@ -42,17 +42,18 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	public CadastrarCategoria(Frame owner, String titulo, String subtitulo) {		
 		super(owner);
 		UIUtils = new UIUtils();
-		this.titulo.setText(titulo);
-		this.subtitulo.setText(subtitulo);
+		getTitulo().setText(titulo);
+		getSubtitulo().setText(subtitulo);
 		dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.cat = new Categoria();
 		this.cat.setIdcategoria(0);
 		addEventos();
-		setModal(true);		
-		setVisible(true);
+		//setModal(true);		
+		//setVisible(true);
 	}
 	
 	/**
+	 * ATUALIZAR
 	 * construtor responsavel por renderizar a tela de atualização de informações
 	 * 
 	 * @param owner, janela pai
@@ -60,23 +61,22 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	 * @param titulo, titulo da janela
 	 * @param subtitulo, titulo auxiliar
 	 */
-	public CadastrarCategoria(Frame owner, Categoria cat, String titulo, String subtitulo) {		
+	public CadastrarCategoria(Dialog owner, Categoria cat, String titulo, String subtitulo) {		
 		super(owner);
 		UIUtils = new UIUtils();
-		this.titulo.setText(titulo);
-		this.subtitulo.setText(subtitulo);
-		this.getJButton_salvar().setText("Atualizar");
-		this.getJButton_salvar().setToolTipText("Atualizar informações");
-		this.icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155842_edit.png")));
-		this.cat = cat;
-		dao = new HibernateDAO<Categoria>(Categoria.class);
+		getTitulo().setText(titulo);
+		getSubtitulo().setText(subtitulo);
+		getJButton_salvar().setText("Atualizar");
+		getJButton_salvar().setToolTipText("Atualizar informações");
+		getIcone().setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155842_edit.png")));
+		this.dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.cat = dao.getBean(cat.getIdcategoria());
 		
-		nomeJTextField.setText(this.cat.getNome());
-		descricaoJTextArea.setText(this.cat.getDescricao());
+		getNomeJTextField().setText(this.cat.getNome());
+		getDescricaoJTextArea().setText(this.cat.getDescricao());
 		addEventos();
-		setModal(true);		
-		setVisible(true);
+		//setModal(true);		
+		//setVisible(true);
 	}
 	
 	/**
@@ -88,21 +88,21 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	 * @param procurar, parametro do tipo inteiro para informar que a janela será de busca, valor=-1
 	 */
 	public CadastrarCategoria(Dialog owner, String titulo, String subtitulo, int procurar) {		
-		super(owner);	
-		UIUtils = new UIUtils();
-		this.titulo.setText(titulo);
-		this.subtitulo.setText(subtitulo);
-		this.alerta.setVisible(false);
-		this.icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155664_xmag.png")));
-		this.getJButton_salvar().setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155999_xmag.png")));
-		this.getJButton_salvar().setText("Procurar");
-		this.getJButton_salvar().setToolTipText("Procurar registro");
-		dao = new HibernateDAO<Categoria>(Categoria.class);
+		super(owner);
+		this.UIUtils = new UIUtils();
+		getTitulo().setText(titulo);
+		getSubtitulo().setText(subtitulo);
+		getAlerta().setVisible(false);
+		getIcone().setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155664_xmag.png")));
+		getJButton_salvar().setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155999_xmag.png")));
+		getJButton_salvar().setText("Procurar");
+		getJButton_salvar().setToolTipText("Procurar registro");
+		this.dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.cat = new Categoria();
 		this.cat.setIdcategoria(procurar);
 		addEventos();
 		setModal(false);		
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	public void addEventos(){
@@ -118,8 +118,12 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		} else
 			
 		if (e.getSource() == getJButton_fechar()){
-			dispose();
+			fechar();
 		}
+	}
+
+	private void fechar() {
+		dispose();
 	}
 
 	private void cadastrar() {
@@ -129,8 +133,8 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		if(this.cat.getIdcategoria() == -1){
 			//Objeto contendo parametros para filtrar registros
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("nome", nomeJTextField.getText());
-			params.put("descricao", descricaoJTextArea.getText());
+			params.put("nome", getNomeJTextField().getText());
+			params.put("descricao", getDescricaoJTextArea().getText());
 			
 			//parametros para ordenação
 			String [] orderBy = new String [1];
@@ -141,51 +145,51 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 			
 		if (podeSalvar){
 			if (this.cat.getIdcategoria() == 0) {
-					dao.salvar(cat);	
-					UIUtils.displayAlertSucess(this, "Sucesso", "Registro salvo com sucesso.");
+					this.dao.salvar(cat);	
+					this.UIUtils.displayAlertSucess(this, "Sucesso", "Registro salvo com sucesso.");
 					limparCampos();
 			}else {
 				cat.setIdcategoria(this.cat.getIdcategoria());
-				dao.atualizar(cat);
-				UIUtils.displayAlertSucess(this, "Sucesso", "Registro atualizado com sucesso.");
+				this.dao.atualizar(cat);
+				this.UIUtils.displayAlertSucess(this, "Sucesso", "Registro atualizado com sucesso.");
 			}
 				
 		} else
-			if (qtdErroCampoObrt > 1) UIUtils.displayAlert(rootPane, "Formulário ", "Os campos abaixo requerem preenchimento obrigatório: " + "\n" + campoObrigatorio);	
-			else UIUtils.displayAlert(rootPane, "Formulário ", "O campo abaixo requer preenchimento obrigatório: " + "\n" + campoObrigatorio);
+			if (qtdErroCampoObrt > 1) UIUtils.displayAlert(this, "Formulário ", "Os campos abaixo requerem preenchimento obrigatório: " + "\n" + campoObrigatorio);	
+			else this.UIUtils.displayAlert(this, "Formulário ", "O campo abaixo requer preenchimento obrigatório: " + "\n" + campoObrigatorio);
 	}
 
 	private void limparCampos() {
-		nomeJTextField.setText("");
-		descricaoJTextArea.setText("");		
+		getNomeJTextField().setText("");
+		getDescricaoJTextArea().setText("");		
 	}
 
 	private boolean preencheBean(Categoria cat) {
 		if (this.cat.getIdcategoria() == -1) { //  idcategoria == -1 servirá para executar o metodo de procura
-			cat.setNome(nomeJTextField.getText());
-			cat.setDescricao(descricaoJTextArea.getText());
+			cat.setNome(getNomeJTextField().getText());
+			cat.setDescricao(getDescricaoJTextArea().getText());
 			return true;
 		}else
-		if (!nomeJTextField.getText().isEmpty()) {
-			cat.setNome(nomeJTextField.getText());
-			cat.setDescricao(descricaoJTextArea.getText());
+		if (getNomeJTextField().getText().isEmpty()) {
+			cat.setNome(getNomeJTextField().getText());
+			cat.setDescricao(getDescricaoJTextArea().getText());
 			return true;
 		} else {
 			campoObrigatorio = "Nome";
 			qtdErroCampoObrt++;
-			nomeJTextField.setBorder(new LineBorder(new Color(255, 0, 0)));
-			alerta.setForeground(Color.RED);
-			nomeJTextField.grabFocus();
+			getNomeJTextField().setBorder(new LineBorder(new Color(255, 0, 0)));
+			getAlerta().setForeground(Color.RED);
+			getNomeJTextField().grabFocus();
 			return false;
 		}
 	}
 	
 	public void digitou (){
-		nomeJTextField.addKeyListener(new KeyAdapter() {
+		getNomeJTextField().addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {				
-				nomeJTextField.setBorder(UIManager.getBorder("TextField.border"));
-				alerta.setForeground(new Color(51, 51, 51));
+				getNomeJTextField().setBorder(UIManager.getBorder("TextField.border"));
+				getAlerta().setForeground(new Color(51, 51, 51));
 			}
 		});
 	}

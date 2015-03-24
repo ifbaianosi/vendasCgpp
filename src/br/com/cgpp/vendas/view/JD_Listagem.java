@@ -42,7 +42,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JMenuItem;
+
 import java.awt.Window.Type;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class JD_Listagem extends JDialog {
 
@@ -219,7 +222,7 @@ public JButton getJButton_novo() {
 	 */
 	public static JTable getJTable() {
 		if (jTable == null) {
-			jTable = new JTable();
+			jTable = new JTable();			
 			jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			jTable.setAutoscrolls(true);
 			jTable.setComponentPopupMenu(getJPopupMenu_table());
@@ -228,11 +231,24 @@ public JButton getJButton_novo() {
 				public void keyPressed(java.awt.event.KeyEvent e) {
 					if (e.getKeyCode() == KeyEvent.VK_TAB)
 					{
-							jTable.nextFocus();
+							jTable.transferFocus();
 					}
 				}
 			});
 			
+
+			jTable.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					if (jTable.getRowCount() > 0) 
+						if (jTable.getSelectedRowCount() > 0)
+							jTable.setRowSelectionInterval(jTable.getSelectedRow(), jTable.getSelectedRow());
+						else
+							jTable.setRowSelectionInterval(0, 0);					
+				}
+			});
+			
+			@SuppressWarnings("serial")
 			Action enterAction = new AbstractAction()  
 	        {  
 					@Override
@@ -482,6 +498,7 @@ public JButton getJButton_novo() {
 	 * 
 	 * @return void
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		this.setSize(700, 500);
 		this.setContentPane(getJContentPane());
@@ -501,5 +518,8 @@ public JButton getJButton_novo() {
 				}
 			}
 		);
+
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
+	
 }  //  @jve:decl-index=0:visual-constraint="10,10"

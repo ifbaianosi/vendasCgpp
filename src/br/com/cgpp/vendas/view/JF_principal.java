@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import br.com.cgpp.vendas.controller.ListarCategoria;
 
@@ -42,7 +45,21 @@ public class JF_principal extends JFrame {
 	 */
 	public JF_principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setSize(800, 600);
+		setLocationRelativeTo(null);
+		
+		//aparencia do sistema: Look and Feel
+		try {			
+            // select the Look and Feel
+             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			
+		      SwingUtilities.updateComponentTreeUI(this);
+		      
+	    } catch (Exception ex) {
+	      JOptionPane.showMessageDialog(this, "Não foi possível alterar a Look And Feel do sistema.", "warning", JOptionPane.WARNING_MESSAGE);
+	    }
+		
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -52,7 +69,7 @@ public class JF_principal extends JFrame {
 		
 		JMenuItem mntmCategoria = new JMenuItem("Categoria");
 		mntmCategoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				new ListarCategoria(frame, "Lista de categorias", "Listagem de todos os itens de categoria.");
 			}
 		});

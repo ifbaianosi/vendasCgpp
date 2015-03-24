@@ -40,9 +40,9 @@ public class JD_Cadastro extends JDialog {
 	private JButton jButton_salvar = null;
 	private JLayeredPane jLayeredPane = null;  //  @jve:decl-index=0:visual-constraint="754,169"
 	protected JLabel jLabel_iconeTitulo = null;
-	protected JLabel icone;
+	private JLabel icone;
 	protected JLabel jLabel_titulo2 = null;
-	protected JLabel titulo;
+	private JLabel titulo;
 	private JLabel jLabel_imgDisignRight = null;
 	protected JLabel subtitulo = null;
 	/**
@@ -169,10 +169,10 @@ public class JD_Cadastro extends JDialog {
 			jLabel_imgDisignRight = new JLabel();
 			jLabel_imgDisignRight.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/head_right 258x54.png")));
 			jLabel_imgDisignRight.setText("");
-			titulo = new JLabel();
-			titulo.setFont(new Font("Dialog", Font.BOLD, 14));
-			titulo.setText("Cadastrar");
-			titulo.setForeground(new Color(102, 102, 102));
+			setTitulo(new JLabel());
+			getTitulo().setFont(new Font("Dialog", Font.BOLD, 14));
+			getTitulo().setText("Cadastrar");
+			getTitulo().setForeground(new Color(102, 102, 102));
 			GridBagConstraints gridBagConstraints61 = new GridBagConstraints();
 			gridBagConstraints61.anchor = GridBagConstraints.WEST;
 			gridBagConstraints61.gridx = 0;
@@ -180,17 +180,17 @@ public class JD_Cadastro extends JDialog {
 			gridBagConstraints61.ipadx = 0;
 			gridBagConstraints61.ipady = 0;
 			gridBagConstraints61.insets = new Insets(10, 6, 10, 0);
-			icone = new JLabel();
-			icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427153490_678092-sign-add-32.png")));
-			icone.setText(" ");
+			setIcone(new JLabel());
+			getIcone().setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427153490_678092-sign-add-32.png")));
+			getIcone().setText(" ");
 			jLayeredPane = new JLayeredPane();
 			jLayeredPane.setLayout(new GridBagLayout());
 			jLayeredPane.setBackground(new Color(255, 255, 255));
 			jLayeredPane.setOpaque(true);
 			jLayeredPane.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.gray));
-			jLayeredPane.add(icone, gbc_icone);
+			jLayeredPane.add(getIcone(), gbc_icone);
 			jLayeredPane.add(getSubtitulo(), gbc_subtitulo);
-			jLayeredPane.add(titulo, gbc_titulo);
+			jLayeredPane.add(getTitulo(), gbc_titulo);
 			jLayeredPane.add(jLabel_imgDisignRight, gridBagConstraints3);
 		}
 		return jLayeredPane;
@@ -201,7 +201,7 @@ public class JD_Cadastro extends JDialog {
 	 * 	
 	 * @return javax.swing.JLabel	
 	 */
-	private JLabel getSubtitulo() {
+	public JLabel getSubtitulo() {
 		if (subtitulo == null) {
 			subtitulo = new JLabel();
 			subtitulo.setText("Titulo auxiliar");
@@ -212,6 +212,7 @@ public class JD_Cadastro extends JDialog {
 
 	/**
 	 * @param owner
+	 * @wbp.parser.constructor
 	 */
 	public JD_Cadastro(Frame owner) {
 		super(owner);
@@ -232,11 +233,8 @@ public class JD_Cadastro extends JDialog {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(500, 300);
-		this.setMinimumSize(new Dimension(400, 250));
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		this.setContentPane(getJContentPane());
-		this.setLocationRelativeTo(null);
+		this.setSize(450, 300);
+		this.setMinimumSize(new Dimension(450, 300));
 		
 		/**
 		 *  botao padrao da tela de cadastro  
@@ -256,6 +254,9 @@ public class JD_Cadastro extends JDialog {
 				}
 			}
 		);
+		this.setContentPane(getJContentPane());
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 
 	/**
@@ -273,5 +274,21 @@ public class JD_Cadastro extends JDialog {
 			jContentPane.add(getJPanel_right(), BorderLayout.EAST);
 		}
 		return jContentPane;
+	}
+
+	public JLabel getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(JLabel titulo) {
+		this.titulo = titulo;
+	}
+
+	public JLabel getIcone() {
+		return icone;
+	}
+
+	public void setIcone(JLabel icone) {
+		this.icone = icone;
 	}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

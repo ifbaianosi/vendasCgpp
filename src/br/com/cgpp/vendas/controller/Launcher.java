@@ -5,6 +5,7 @@ import br.com.cgpp.vendas.view.JF_principal;
 
 public class Launcher {
 	
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		//new CadastrarCategoriaController();
 		//new EditarCategoriaController();
@@ -17,7 +18,8 @@ public class Launcher {
 		//new ListarCategoria(null, "Lista de categorias", "Listagem de todos os itens de categoria.");
 		
 		
-		JF_principal.main(null);;
+		JF_principal p = new JF_principal();
+		p.main(null);
 	}
 
 }

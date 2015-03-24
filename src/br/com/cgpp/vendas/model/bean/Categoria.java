@@ -1,8 +1,5 @@
 package br.com.cgpp.vendas.model.bean;
 
-import br.com.cgpp.vendas.model.dao.HibernateDAO;
-
-
 public class Categoria {
 
 	private int idcategoria;
