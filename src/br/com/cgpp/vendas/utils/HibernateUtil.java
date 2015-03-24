@@ -22,7 +22,7 @@ public class HibernateUtil {
 		configuration.setProperty("hibernate.connection.password", "abcif2014");
 		configuration.setProperty("hibernate.c3p0.min_size", "1");
 		configuration.setProperty("hibernate.c3p0.max_size", "5");
-		configuration.setProperty("hibernate.c3p0.timeout", "300");
+		configuration.setProperty("hibernate.c3p0.timeout", "10");
 		configuration.setProperty("hibernate.c3p0.max_statements", "50");
 		configuration.setProperty("hibernate.c3p0.idle_test_period", "300");
 		configuration.setProperty("hibernate.current_session_context_class", "thread");
