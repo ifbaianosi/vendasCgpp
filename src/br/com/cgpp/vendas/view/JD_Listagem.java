@@ -20,11 +20,14 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -95,6 +98,7 @@ public class JD_Listagem extends JDialog {
 	public JButton getJButton_fechar() {
 		if (jButton_fechar == null) {
 			jButton_fechar = new JButton();
+			jButton_fechar.setToolTipText("Fechar esta janela");
 			jButton_fechar.setText("Fechar");
 			jButton_fechar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/Close.png")));
 		}
@@ -110,7 +114,6 @@ public class JD_Listagem extends JDialog {
 		if (jPanel_conteudo == null) {
 			jLabel2 = new JLabel();
 			jLabel2.setText("carregando dados");
-			jLabel2.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/ajax-loader.gif")));
 			jPanel_conteudo = new JPanel();
 			jPanel_conteudo.setLayout(new BorderLayout());
 			jPanel_conteudo.add(getJPanel1(), BorderLayout.NORTH);
@@ -146,6 +149,7 @@ public class JD_Listagem extends JDialog {
 public JButton getJButton_novo() {
 		if (jButton_novo == null) {
 			jButton_novo = new JButton();
+			jButton_novo.setToolTipText("Adicionar um novo registro");
 			jButton_novo.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-adiciona.png")));
 			jButton_novo.setText("Novo");
 		}
@@ -160,7 +164,8 @@ public JButton getJButton_novo() {
 	public JButton getJButton_editar() {
 		if (jButton_editar == null) {
 			jButton_editar = new JButton();
-			jButton_editar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/editar 16x16 (2).png")));
+			jButton_editar.setToolTipText("Editar informa\u00E7\u00F5es do registro selecionado");
+			jButton_editar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155849_edit.png")));
 			jButton_editar.setText("Editar");
 		}
 		return jButton_editar;
@@ -174,7 +179,8 @@ public JButton getJButton_novo() {
 	public JButton getJButton_procurar() {
 		if (jButton_procurar == null) {
 			jButton_procurar = new JButton();
-			jButton_procurar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/lente_aumento.png")));
+			jButton_procurar.setToolTipText("Procurar registros");
+			jButton_procurar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155999_xmag.png")));
 			jButton_procurar.setText("Procurar");
 		}
 		return jButton_procurar;
@@ -183,6 +189,7 @@ public JButton getJButton_novo() {
 	public JButton getBtnExcluir() {
 		if (btnExcluir == null) {
 			btnExcluir = new JButton("Excluir");
+			btnExcluir.setToolTipText("Excluir um registro selecionado");
 			btnExcluir.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-remove.png")));
 		}
 		return btnExcluir;
@@ -236,6 +243,7 @@ public JButton getJButton_novo() {
         enter = KeyStroke.getKeyStroke("ENTER");  
         im.put(enter, im.get(KeyStroke.getKeyStroke(KeyEvent.VK_GREATER, 0)));  
         jTable.getActionMap().put(im.get(enter), enterAction);
+        
 		}
 		return jTable;
 	}
@@ -260,6 +268,7 @@ public JButton getJButton_novo() {
 		if (jMenuItem_novo == null) {
 			jMenuItem_novo = new JMenuItem();
 			jMenuItem_novo.setText("Adicionar");
+			jMenuItem_novo.setToolTipText("Adicionar um novo registro");
 			jMenuItem_novo.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-adiciona.png")));
 		}
 		return jMenuItem_novo;
@@ -274,6 +283,7 @@ public JButton getJButton_novo() {
 		if (jMenuItem_editar == null) {
 			jMenuItem_editar = new JMenuItem();
 			jMenuItem_editar.setText("Editar");
+			jMenuItem_editar.setToolTipText("Editar informa\u00E7\u00F5es do registro selecionado");
 			jMenuItem_editar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/editar 16x16 (2).png")));
 		}
 		return jMenuItem_editar;
@@ -283,6 +293,7 @@ public JButton getJButton_novo() {
 		if (jMenuItem_excluir == null) {
 			jMenuItem_excluir = new JMenuItem();
 			jMenuItem_excluir.setText("Excluir");
+			jMenuItem_excluir.setToolTipText("Excluir um registro selecionado");
 			jMenuItem_excluir.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/nav-remove.png")));
 		}
 		return jMenuItem_excluir;
@@ -292,6 +303,7 @@ public JButton getJButton_novo() {
 		if (jMenuItem_procurar == null) {
 			jMenuItem_procurar = new JMenuItem();
 			jMenuItem_procurar.setText("Procurar");
+			jMenuItem_procurar.setToolTipText("Procurar registros");
 			jMenuItem_procurar.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/lente_aumento.png")));
 		}
 		return jMenuItem_procurar;
@@ -369,8 +381,8 @@ public JButton getJButton_novo() {
 			gbc_titulo.weighty = 0.0;
 			gbc_titulo.fill = GridBagConstraints.HORIZONTAL;
 			titulo = new JLabel();
-			titulo.setFont(new Font("Dialog", Font.BOLD, 16));
-			titulo.setText("Cadastrar");
+			titulo.setFont(new Font("Dialog", Font.BOLD, 18));
+			titulo.setText("Listar todos os itens");
 			titulo.setForeground(new Color(102, 102, 102));
 			GridBagConstraints gbc_subtitle = new GridBagConstraints();
 			gbc_subtitle.anchor = GridBagConstraints.NORTHWEST;

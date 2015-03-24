@@ -9,12 +9,15 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import br.com.cgpp.vendas.model.bean.Categoria;
 import br.com.cgpp.vendas.model.dao.HibernateDAO;
 import br.com.cgpp.vendas.utils.UIUtils;
+import br.com.cgpp.vendas.view.JD_Cadastro;
+import br.com.cgpp.vendas.view.JD_Listagem;
 import br.com.cgpp.vendas.view.JD_cadastro_categoria;
 
 
@@ -26,7 +29,15 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	private Categoria cat;
 	private UIUtils UIUtils;
 	private String campoObrigatorio = "";
+	private int qtdErroCampoObrt = 0;
 	
+	/**
+	 * construtor responsável por renderizar a tela de cadastro
+	 * 
+	 * @param owner, janela pai
+	 * @param titulo, titulo da janela
+	 * @param subtitulo, titulo auxiliar
+	 */
 	public CadastrarCategoria(Frame owner, String titulo, String subtitulo) {		
 		super(owner);
 		UIUtils = new UIUtils();
@@ -40,15 +51,26 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		setVisible(true);
 	}
 	
+	/**
+	 * construtor responsavel por renderizar a tela de atualização de informações
+	 * 
+	 * @param owner, janela pai
+	 * @param cat, tipo de objeto a ser atualizado na base de dados
+	 * @param titulo, titulo da janela
+	 * @param subtitulo, titulo auxiliar
+	 */
 	public CadastrarCategoria(Frame owner, Categoria cat, String titulo, String subtitulo) {		
 		super(owner);
 		UIUtils = new UIUtils();
 		this.titulo.setText(titulo);
 		this.subtitulo.setText(subtitulo);
+		this.getJButton_salvar().setText("Atualizar");
+		this.getJButton_salvar().setToolTipText("Atualizar informações");
+		this.icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155842_edit.png")));
 		this.cat = cat;
 		dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.cat = dao.getBean(cat.getIdcategoria());
-		getJButton_salvar().setText("Atualizar");
+		
 		nomeJTextField.setText(this.cat.getNome());
 		descricaoJTextArea.setText(this.cat.getDescricao());
 		addEventos();
@@ -56,16 +78,27 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		setVisible(true);
 	}
 	
+	/**
+	 * construtor responsavel por renderizar a tela de procura
+	 * 
+	 * @param owner
+	 * @param titulo, titulo da janela
+	 * @param subtitulo, titulo auxiliar
+	 * @param procurar, parametro do tipo inteiro para informar que a janela será de busca, valor=-1
+	 */
 	public CadastrarCategoria(Frame owner, String titulo, String subtitulo, int procurar) {		
 		super(owner);	
 		UIUtils = new UIUtils();
 		this.titulo.setText(titulo);
 		this.subtitulo.setText(subtitulo);
 		this.alerta.setVisible(false);
+		this.icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427155664_xmag.png")));
+		this.getJButton_salvar().setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/1427155999_xmag.png")));
+		this.getJButton_salvar().setText("Procurar");
+		this.getJButton_salvar().setToolTipText("Procurar registro");
 		dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.cat = new Categoria();
 		this.cat.setIdcategoria(procurar);
-		getJButton_salvar().setText("Procurar");
 		addEventos();
 		setModal(false);		
 		setVisible(true);
@@ -117,7 +150,8 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 			}
 				
 		} else
-			UIUtils.displayAlert(rootPane, "Formulário ", "O(s) campo(s) abaixo requer(em) preenchimento obrigatório: " + "\n" + campoObrigatorio);	
+			if (qtdErroCampoObrt > 1) UIUtils.displayAlert(rootPane, "Formulário ", "Os campos abaixo requerem preenchimento obrigatório: " + "\n" + campoObrigatorio);	
+			else UIUtils.displayAlert(rootPane, "Formulário ", "O campo abaixo requer preenchimento obrigatório: " + "\n" + campoObrigatorio);
 	}
 
 	private void limparCampos() {
@@ -137,6 +171,7 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 			return true;
 		} else {
 			campoObrigatorio = "Nome";
+			qtdErroCampoObrt++;
 			nomeJTextField.setBorder(new LineBorder(new Color(255, 0, 0)));
 			alerta.setForeground(Color.RED);
 			nomeJTextField.grabFocus();

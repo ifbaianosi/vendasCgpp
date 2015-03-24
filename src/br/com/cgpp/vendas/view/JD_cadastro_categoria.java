@@ -16,13 +16,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.com.cgpp.vendas.utils.BackgroundFocusField;
 import br.com.cgpp.vendas.utils.FixedLengthDocument;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.MatteBorder;
+
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.UIManager;
 
 public class JD_cadastro_categoria extends JD_Cadastro {
@@ -59,6 +65,7 @@ public class JD_cadastro_categoria extends JD_Cadastro {
 
 		nomeJTextField = new JTextField();		
 		nomeJTextField.setDocument(new FixedLengthDocument(50));
+		BackgroundFocusField.requestFocus(nomeJTextField);
 		GridBagConstraints componentGbc_0 = new GridBagConstraints();
 		componentGbc_0.insets = new Insets(10, 0, 5, 0);
 		componentGbc_0.fill = GridBagConstraints.HORIZONTAL;
@@ -78,6 +85,7 @@ public class JD_cadastro_categoria extends JD_Cadastro {
 		descricaoJTextArea = new JTextArea();
 		descricaoJTextArea.setLineWrap(true);
 		descricaoJTextArea.setDocument(new FixedLengthDocument(250));
+		BackgroundFocusField.requestFocus(descricaoJTextArea);
 		GridBagConstraints gbc_txtrTeste = new GridBagConstraints();
 		gbc_txtrTeste.fill = GridBagConstraints.BOTH;
 		gbc_txtrTeste.insets = new Insets(0, 0, 5, 0);

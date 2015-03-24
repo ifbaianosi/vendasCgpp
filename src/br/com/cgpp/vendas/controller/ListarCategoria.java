@@ -17,6 +17,7 @@ import org.hibernate.HibernateException;
 import br.com.cgpp.vendas.model.bean.Categoria;
 import br.com.cgpp.vendas.model.dao.HibernateDAO;
 import br.com.cgpp.vendas.utils.UIUtils;
+import br.com.cgpp.vendas.view.JD_Listagem;
 import br.com.cgpp.vendas.view.JD_listar_categoria;
 
 public class ListarCategoria extends JD_listar_categoria implements ActionListener, MouseListener, KeyListener{
@@ -89,6 +90,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 					} catch (Exception e) {
 						UIUtils.displayException(rootPane, e);
 						jLabel2.setText("problemas na conexão com o banco de dados.");
+						jLabel2.setIcon(new ImageIcon(JD_Listagem.class.getResource("/br/com/cgpp/vendas/img/erro.png")));
 						e.printStackTrace();
 					} finally{
 						jLabel2.setIcon(null);

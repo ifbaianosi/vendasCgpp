@@ -22,10 +22,11 @@ public class UIUtils {
 	 */
 	//private static final Logger LOGGER = LoggerFactory.getLogger(UIUtils.class);
 	
-	private Icon iconWarning = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/notification_warning.png"));	
+	private Icon iconWarning = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/warning_64.png"));	
 	private Icon iconSucess = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/notification_sucess.png"));
 	private Icon iconException = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/notification_error.png"));
-	private Icon iconQuestion = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/notification_question.png"));
+	//private Icon iconQuestion = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/notification_question.png"));
+	private Icon iconQuestion = new ImageIcon(getClass().getResource("/br/com/cgpp/vendas/img/1427158787_question_red.png"));
 	/*private Icon iconInformation = new ImageIcon(getClass().getResource("/Img/information.png"));	*/
 	
 	/**

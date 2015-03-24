@@ -101,6 +101,7 @@ public class JD_Cadastro extends JDialog {
 	public JButton getJButton_salvar() {
 		if (jButton_salvar == null) {
 			jButton_salvar = new JButton();
+			jButton_salvar.setToolTipText("Salvar as informa\u00E7\u00F5es");
 			jButton_salvar.setText("Salvar");
 			jButton_salvar.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/ok 16x16.png")));
 		}
@@ -115,6 +116,7 @@ public class JD_Cadastro extends JDialog {
 	public JButton getJButton_fechar() {
 		if (jButton_fechar == null) {
 			jButton_fechar = new JButton();
+			jButton_fechar.setToolTipText("Fechar esta janela");
 			jButton_fechar.setText("Fechar");
 			jButton_fechar.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/Close.png")));
 		}
@@ -148,7 +150,7 @@ public class JD_Cadastro extends JDialog {
 			gbc_titulo.weighty = 0.0;
 			gbc_titulo.gridx = 0;
 			GridBagConstraints gbc_subtitulo = new GridBagConstraints();
-			gbc_subtitulo.insets = new Insets(0, 45, 2, 25);
+			gbc_subtitulo.insets = new Insets(0, 45, 4, 25);
 			gbc_subtitulo.gridx = 0;
 			gbc_subtitulo.gridy = 1;
 			gbc_subtitulo.ipadx = 0;
@@ -159,7 +161,7 @@ public class JD_Cadastro extends JDialog {
 			gbc_subtitulo.gridheight = 1;
 			gbc_subtitulo.gridwidth = 3;
 			GridBagConstraints gbc_icone = new GridBagConstraints();
-			gbc_icone.insets = new Insets(19, 33, 0, 10);
+			gbc_icone.insets = new Insets(6, 33, 0, 10);
 			gbc_icone.gridy = 0;
 			gbc_icone.anchor = GridBagConstraints.EAST;
 			gbc_icone.gridx = 2;
@@ -178,6 +180,7 @@ public class JD_Cadastro extends JDialog {
 			gridBagConstraints61.ipady = 0;
 			gridBagConstraints61.insets = new Insets(10, 6, 10, 0);
 			icone = new JLabel();
+			icone.setIcon(new ImageIcon(JD_Cadastro.class.getResource("/br/com/cgpp/vendas/img/1427153490_678092-sign-add-32.png")));
 			icone.setText(" ");
 			jLayeredPane = new JLayeredPane();
 			jLayeredPane.setLayout(new GridBagLayout());
