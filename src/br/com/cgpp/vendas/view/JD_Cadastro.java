@@ -6,7 +6,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,11 +22,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import javax.swing.WindowConstants;
 
 import br.com.cgpp.vendas.utils.PanelFormUICinza;
 
-public class JD_Cadastro extends JDialog {
+public abstract class JD_Cadastro extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -213,18 +211,21 @@ public class JD_Cadastro extends JDialog {
 	/**
 	 * @param owner
 	 * @wbp.parser.constructor
-	 */
+	 
 	public JD_Cadastro(Frame owner) {
 		super(owner);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		initialize();
-	}
+	}*/
 	
 	/**
 	 * @param owner
 	 */
 	public JD_Cadastro(Dialog owner) {
 		super(owner);
+		setModal(true);
 		initialize();
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 
 	/**
@@ -256,7 +257,6 @@ public class JD_Cadastro extends JDialog {
 		);
 		this.setContentPane(getJContentPane());
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 
 	/**

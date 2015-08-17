@@ -2,7 +2,6 @@ package br.com.cgpp.vendas.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,9 +14,11 @@ import javax.swing.JTextField;
 
 import br.com.cgpp.vendas.utils.BackgroundFocusField;
 import br.com.cgpp.vendas.utils.FixedLengthDocument;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-@SuppressWarnings("serial")
-public class JD_cadastro_categoria extends JD_Cadastro {
+
+public abstract class JD_cadastro_categoria extends JD_Cadastro {
 
 	protected JPanel form_categoria;
 	private JTextField nomeJTextField;
@@ -27,19 +28,24 @@ public class JD_cadastro_categoria extends JD_Cadastro {
 	/**
 	 * Create the dialog.
 	 * @wbp.parser.constructor
-	 */
+	 
 	public JD_cadastro_categoria(Frame owner) {
 		super(owner);
 		setModal(true);
 		setSize(450, 350);
 		inicializeForm();
-	}
+	}*/
 	
 	/**
 	 * Create the dialog.
 	 */
 	public JD_cadastro_categoria(Dialog owner) {
 		super(owner);
+		getJButton_salvar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		setModal(true);
 		setSize(450, 350);
 		inicializeForm();

@@ -5,29 +5,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.management.GarbageCollectorMXBean;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.HibernateException;
 
 import br.com.cgpp.vendas.model.bean.Categoria;
+import br.com.cgpp.vendas.model.bean.PesCategoriaTableModel;
 import br.com.cgpp.vendas.model.dao.HibernateDAO;
 import br.com.cgpp.vendas.utils.UIUtils;
-import br.com.cgpp.vendas.view.JD_Listagem;
 import br.com.cgpp.vendas.view.JD_listar_categoria;
-import br.com.cgpp.vendas.view.JF_principal;
+
 
 public class ListarCategoria extends JD_listar_categoria implements ActionListener, MouseListener, KeyListener{
 
+	
 	private HibernateDAO<Categoria> dao;
 	
 	private UIUtils UIUtils;
+	
+	private PesCategoriaTableModel modelcat;
 	
 	
 	public ListarCategoria(Frame owner, String titulo, String subtitulo) {
@@ -36,7 +38,9 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 		getSubtitulo().setText(subtitulo);
 		this.dao = new HibernateDAO<Categoria>(Categoria.class);
 		this.UIUtils = new UIUtils();
-		listar();
+		encheTabela(dao.getBeans());
+		
+		//listar();
 		addEventos();
 		setVisible(true);
 	}
@@ -63,7 +67,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 			novo();
 		}else
 			
-		if (e.getSource() == getJButton_editar() || e.getSource() == getJMenuItem_editar()){
+		if (e.getSource() == getJButton_editar() || e.getSource() == getJMenuItem_editar() ){ 
 			editar();
 		} else
 		
@@ -81,7 +85,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 	}
 	
 	private void novo() {
-		new CadastrarCategoria(this, "Categoria", "Cadastrar uma nova categoria").setVisible(true);;
+		new CadastrarCategoria(this, "Categoria", "Cadastrar uma nova categoria").setVisible(true);
 		listar();
 	}
 
@@ -93,12 +97,16 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 			Categoria categoria = new Categoria();
 			categoria.setIdcategoria(Integer.parseInt(getJTable().getValueAt(linhaselecionada, 0).toString()));			
 			
-			CadastrarCategoria janelac = new CadastrarCategoria(this, categoria, "Editar Categoria", "Atualiza as informações alteradas.");	
-			janelac.setVisible(true);
+			new CadastrarCategoria(this, categoria, "Editar Categoria", "Atualiza as informações alteradas.").setVisible(true);
+			//janelac.setVisible(true);;
 			
 			getJButton_editar().grabFocus();
-			try {			
-				listarTable(dao.getBeans());
+			try {
+				encheTabela(dao.getBeans());
+				//listarTable(dao.getBeans());
+				getJTable().setRowSelectionInterval(linhaselecionada, linhaselecionada);
+				getModelcat().limpar();
+				encheTabela(dao.getBeans());
 				getJTable().setRowSelectionInterval(linhaselecionada, linhaselecionada);
 			} catch (Exception e) {
 				UIUtils.displayException(this, e);
@@ -162,6 +170,34 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 			}.start();
 	}
 
+	private void encheTabela(List<Categoria> categorias){
+		
+		if (categorias.size() > 0)
+		{
+			for (int i = 0; i < categorias.size(); i++)
+			{
+				Categoria categoria = categorias.get(i);
+				getModelcat().addCat(new Categoria(categoria.getIdcategoria(), categoria.getNome(), categoria.getDescricao()));
+			}
+			getJTable().setModel(getModelcat());
+			
+		}
+		
+	}
+	
+	private PesCategoriaTableModel getModelcat() {
+		if (modelcat == null) {
+			modelcat = (PesCategoriaTableModel) getTblCat().getModel();
+		}
+		return modelcat;
+	}
+	
+	private JTable getTblCat() {
+		getJTable().setModel(new PesCategoriaTableModel());
+		return getJTable();
+	}
+	
+	
 	private static Object linhas [][];
 	private static String cabecalho [] = {"ID", "NOME", "DESCRICÃO"};
 	
@@ -214,7 +250,7 @@ public class ListarCategoria extends JD_listar_categoria implements ActionListen
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {	
-		if (e.getClickCount() == 2)
+		if (e.getClickCount()==2)
 			editar();
 	}
 

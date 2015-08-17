@@ -1,18 +1,10 @@
 package br.com.cgpp.vendas.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Frame;
+import java.awt.Dialog;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class JD_cadastro_produto extends JD_Cadastro {
 
@@ -33,7 +25,7 @@ public class JD_cadastro_produto extends JD_Cadastro {
 	/**
 	 * Create the dialog.
 	 */
-	public JD_cadastro_produto(Frame owner) {
+	public JD_cadastro_produto(Dialog owner) {
 		super(owner);
 		
 		JPanel panel = new JPanel();

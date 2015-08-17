@@ -1,13 +1,8 @@
 package br.com.cgpp.vendas.view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dialog;
 import java.awt.Frame;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class JD_listar_categoria extends JD_Listagem {

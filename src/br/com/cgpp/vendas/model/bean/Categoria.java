@@ -6,6 +6,19 @@ public class Categoria {
 	private String nome;
 	private String descricao;
 
+	
+	
+	public Categoria() {
+
+	}
+
+	public Categoria(int idcategoria, String nome, String descricao) {
+		super();
+		this.idcategoria = idcategoria;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+
 	public int getIdcategoria() {
 		return idcategoria;
 	}

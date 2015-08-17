@@ -1,26 +1,24 @@
 package br.com.cgpp.vendas.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import br.com.cgpp.vendas.controller.ListarCategoria;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class JF_principal extends JFrame {
 
 	private JPanel contentPane;
+	protected JMenuItem mntmCategoria;
+	protected JMenuItem mntmSair;
 	
 
 	/**
@@ -37,7 +35,7 @@ public class JF_principal extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
@@ -47,7 +45,7 @@ public class JF_principal extends JFrame {
 		setSize(800, 600);
 		setLocationRelativeTo(null);
 		
-		//aparencia do sistema: Look and Feel
+		//aparência do sistema: Look and Feel
 		try {			
             // select the Look and Feel
              UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -66,20 +64,10 @@ public class JF_principal extends JFrame {
 		JMenu mnCadastros = new JMenu("Cadastros");
 		menuBar.add(mnCadastros);
 		
-		JMenuItem mntmCategoria = new JMenuItem("Categoria");
-		mntmCategoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				listar();
-			}
-		});
+		mntmCategoria = new JMenuItem("Categoria");
 		mnCadastros.add(mntmCategoria);
 		
-		JMenuItem mntmSair = new JMenuItem("Sair");
-		mntmSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-			}
-		});
+		mntmSair = new JMenuItem("Sair");
 		mnCadastros.add(mntmSair);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,6 +80,7 @@ public class JF_principal extends JFrame {
 
 	private void listar() {
 		new ListarCategoria(this, "Lista de categorias", "Listagem de todos os itens de categoria.");
+		
 	}
 
 }

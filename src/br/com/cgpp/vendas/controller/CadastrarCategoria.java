@@ -2,7 +2,6 @@ package br.com.cgpp.vendas.controller;
 
 import java.awt.Color;
 import java.awt.Dialog;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -23,8 +22,8 @@ import br.com.cgpp.vendas.view.JD_cadastro_categoria;
 
 
 
-@SuppressWarnings("serial")
-public class CadastrarCategoria extends JD_cadastro_categoria implements ActionListener{
+
+public final class CadastrarCategoria extends JD_cadastro_categoria implements ActionListener{
 
 	private HibernateDAO<Categoria> dao;
 	private Categoria cat;
@@ -36,8 +35,8 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	 * construtor responsável por renderizar a tela de cadastro
 	 * 
 	 * @param owner, janela pai
-	 * @param titulo, titulo da janela
-	 * @param subtitulo, titulo auxiliar
+	 * @param titulo, título da janela
+	 * @param subtitulo, título auxiliar
 	 */
 	public CadastrarCategoria(Dialog owner, String titulo, String subtitulo) {		
 		super(owner);
@@ -54,12 +53,12 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	
 	/**
 	 * ATUALIZAR
-	 * construtor responsavel por renderizar a tela de atualização de informações
+	 * construtor responsável por renderizar a tela de atualização de informações
 	 * 
 	 * @param owner, janela pai
 	 * @param cat, tipo de objeto a ser atualizado na base de dados
-	 * @param titulo, titulo da janela
-	 * @param subtitulo, titulo auxiliar
+	 * @param titulo, título da janela
+	 * @param subtitulo, título auxiliar
 	 */
 	public CadastrarCategoria(Dialog owner, Categoria cat, String titulo, String subtitulo) {		
 		super(owner);
@@ -80,12 +79,12 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	}
 	
 	/**
-	 * construtor responsavel por renderizar a tela de procura
+	 * construtor responsável por renderizar a tela de procura
 	 * 
 	 * @param owner
-	 * @param titulo, titulo da janela
-	 * @param subtitulo, titulo auxiliar
-	 * @param procurar, parametro do tipo inteiro para informar que a janela será de busca, valor=-1
+	 * @param título, título da janela
+	 * @param subtitulo, título auxiliar
+	 * @param procurar, parâmetro do tipo inteiro para informar que a janela será de busca, valor=-1
 	 */
 	public CadastrarCategoria(Dialog owner, String titulo, String subtitulo, int procurar) {		
 		super(owner);
@@ -101,7 +100,7 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		this.cat = new Categoria();
 		this.cat.setIdcategoria(procurar);
 		addEventos();
-		setModal(false);		
+		//setModal(false);		
 		//setVisible(true);
 	}
 
@@ -131,12 +130,12 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 		boolean podeSalvar = preencheBean(cat);
 		
 		if(this.cat.getIdcategoria() == -1){
-			//Objeto contendo parametros para filtrar registros
+			//Objeto contendo parâmetros para filtrar registros
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("nome", getNomeJTextField().getText());
 			params.put("descricao", getDescricaoJTextArea().getText());
 			
-			//parametros para ordenação
+			//parâmetros para ordenação
 			String [] orderBy = new String [1];
 			orderBy[0] = "nome";
 			
@@ -165,22 +164,22 @@ public class CadastrarCategoria extends JD_cadastro_categoria implements ActionL
 	}
 
 	private boolean preencheBean(Categoria cat) {
-		if (this.cat.getIdcategoria() == -1) { //  idcategoria == -1 servirá para executar o metodo de procura
+		if (this.cat.getIdcategoria() == -1) { //  idcategoria == -1 servirá para executar o método de procura
 			cat.setNome(getNomeJTextField().getText());
 			cat.setDescricao(getDescricaoJTextArea().getText());
 			return true;
 		}else
 		if (getNomeJTextField().getText().isEmpty()) {
-			cat.setNome(getNomeJTextField().getText());
-			cat.setDescricao(getDescricaoJTextArea().getText());
-			return true;
-		} else {
 			campoObrigatorio = "Nome";
 			qtdErroCampoObrt++;
 			getNomeJTextField().setBorder(new LineBorder(new Color(255, 0, 0)));
 			getAlerta().setForeground(Color.RED);
 			getNomeJTextField().grabFocus();
 			return false;
+		} else {		
+			cat.setNome(getNomeJTextField().getText());
+			cat.setDescricao(getDescricaoJTextArea().getText());
+			return true;
 		}
 	}
 	
